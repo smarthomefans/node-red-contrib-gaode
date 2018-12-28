@@ -1,0 +1,162 @@
+<script type="text/javascript">
+    RED.nodes.registerType('gaode',{
+        category: 'gaode',
+        color: '#25A5F7',
+        defaults: {
+            server: {value:"", type:"gaode-server"},
+            longitude: {value:""}, 
+            latitude: {value:""}, 
+        },
+        inputs:1,
+        outputs:1,
+        icon: "location.png",
+        label: function() {
+            return this.name|| "高德";
+        },
+    });
+
+    RED.nodes.registerType('gaode-direction',{
+        category: 'gaode',
+        color: '#25A5F7',
+        defaults: {
+            server: {value:"", type:"gaode-server"},
+            longitude_source: {value:""}, 
+            latitude_source: {value:""}, 
+            longitude_direction: {value:""}, 
+            latitude_direction: {value:""}, 
+            city: { value:""},
+            s1: { value: true },
+            s2: { value: false },
+            s3: { value: false },
+            s4: { value: false },
+        },
+        inputs:1,
+        outputs:1,
+        icon: "warning.png",
+        label: function() {
+            return this.name|| "高德";
+        },
+    });
+
+
+    RED.nodes.registerType('gaode-server',{
+        category: 'config',
+        defaults: {
+            name : { value:"默认高德key",required:true},
+            gaodeKey : { value:"", required:true},
+        },
+        label: function() {
+            return this.name;
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="gaode">
+    <div class="form-row">
+        <label for="node-input-server"><i class="icon-tag"></i> Server</label>
+        <input type="text" id="node-input-server" placeholder="Server">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-longitude"><i class="icon-tag"></i>经度</label>
+        <input type="text" id="node-input-longitude" maxlength='78' placeholder="(msg.payload.longitude)">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-latitude"><i class="icon-tag"></i>纬度</label>
+        <input type="text" id="node-input-latitude" maxlength='78' placeholder="(msg.payload.latitude)">
+    </div>
+
+</script>
+
+
+<script type="text/x-red" data-help-name="gaode">
+    <p>配置高德key</p>
+    <p>按照要求填写经纬度</p>
+</script>
+
+
+<script type="text/x-red" data-template-name="gaode-direction">
+    <div class="form-row">
+        <label for="node-input-server"><i class="icon-tag"></i> Server</label>
+        <input type="text" id="node-input-server" placeholder="Server">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-city"><i class="icon-tag"></i>城市名称(公交方式必填)</label>
+        <input type="text" id="node-input-city" maxlength='78' placeholder="(msg.payload.city)">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-longitude_source"><i class="icon-tag"></i>起始经度</label>
+        <input type="text" id="node-input-longitude_source" maxlength='78' placeholder="(msg.payload.longitude_source)">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-latitude_source"><i class="icon-tag"></i>起始纬度</label>
+        <input type="text" id="node-input-latitude_source" maxlength='78' placeholder="(msg.payload.latitude_source)">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-longitude_direction"><i class="icon-tag"></i>终点经度</label>
+        <input type="text" id="node-input-longitude_direction" maxlength='78' placeholder="(msg.payload.longitude_direction)">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-latitude_direction"><i class="icon-tag"></i>终点纬度</label>
+        <input type="text" id="node-input-latitude_direction" maxlength='78' placeholder="(msg.payload.latitude_direction)">
+    </div>
+
+    <div class="form-row mp1socket">
+        <table>
+            <tr>
+                <td><label><i class="fa fa-plug"></i>方式(只能选择一个)</label></td>
+                <td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>驾车</th>
+                                <th>步行</th>
+                                <th>骑车</th>
+                                <th>公交</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input name="direction"  id="node-input-s1" type='checkbox' /></td>
+                                <td><input name="direction"  id="node-input-s2" type='checkbox' /></td>
+                                <td><input name="direction"  id="node-input-s3" type='checkbox' /></td>
+                                <td><input name="direction"  id="node-input-s4" type='checkbox' /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</script>
+
+
+<script type="text/x-red" data-help-name="gaode-direction">
+    <p>配置高德key</p>
+    <p>按照要求填写经纬度</p>
+    <p>行驶方式只可以选择一个,选择多个第一个生效</p>
+</script>
+
+
+<script type="text/x-red" data-template-name="gaode-server">
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="icon-bookmark"></i> 默认名称</label>
+        <input type="text" id="node-config-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-gaodeKey"><i class="icon-bookmark"></i>Key</label>
+        <input type="text" id="node-config-input-gaodeKey">
+    </div>
+   
+</script>
+
+<script type="text/x-red" data-help-name="gaode-server">
+    <p>高德地图web服务的key</p>
+</script>
