@@ -4,8 +4,10 @@
         color: '#25A5F7',
         defaults: {
             server: {value:"", type:"gaode-server"},
+            name : {value:""},
             longitude: {value:""}, 
             latitude: {value:""}, 
+            zoom: {value:""},
         },
         inputs:1,
         outputs:1,
@@ -20,6 +22,7 @@
         color: '#25A5F7',
         defaults: {
             server: {value:"", type:"gaode-server"},
+            name : {value:""},
             longitude_source: {value:""}, 
             latitude_source: {value:""}, 
             longitude_direction: {value:""}, 
@@ -34,7 +37,7 @@
         outputs:1,
         icon: "warning.png",
         label: function() {
-            return this.name|| "高德";
+            return this.name|| "高德距离警报";
         },
     });
 
@@ -58,6 +61,11 @@
     </div>
 
     <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
         <label for="node-input-longitude"><i class="icon-tag"></i>经度</label>
         <input type="text" id="node-input-longitude" maxlength='78' placeholder="(msg.payload.longitude)">
     </div>
@@ -65,6 +73,11 @@
     <div class="form-row">
         <label for="node-input-latitude"><i class="icon-tag"></i>纬度</label>
         <input type="text" id="node-input-latitude" maxlength='78' placeholder="(msg.payload.latitude)">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-zoom"><i class="icon-tag"></i>缩放比例(1-17)</label>
+        <input type="text" id="node-input-zoom" maxlength='78' placeholder="(msg.payload.zoom)">
     </div>
 
 </script>
@@ -80,6 +93,11 @@
     <div class="form-row">
         <label for="node-input-server"><i class="icon-tag"></i> Server</label>
         <input type="text" id="node-input-server" placeholder="Server">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
     </div>
 
     <div class="form-row">
