@@ -19,9 +19,10 @@ module.exports = function (RED) {
 
             var longitude = config.longitude || msg.payload.longitude
             var latitude = config.latitude || msg.payload.latitude
+            var zoom = config.zoom || msg.payload.zoom || '10'
             let locations = `${longitude},${latitude}`
             var payload = {}
-            var image_map = `https://restapi.amap.com/v3/staticmap?location=${locations}&zoom=10&size=750*500&markers=mid,,A:${locations}&key=${gaodeKey}`
+            var image_map = `https://restapi.amap.com/v3/staticmap?location=${locations}&zoom=${zoom}&size=750*500&markers=mid,,A:${locations}&key=${gaodeKey}`
             node.log(image_map)
             axios({
                 method: 'get',
