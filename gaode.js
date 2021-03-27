@@ -22,8 +22,6 @@ module.exports = function (RED) {
             var zoom = config.zoom || msg.payload.zoom || '10'
             let locations = `${longitude},${latitude}`
             var payload = {}
-            var image_map = `https://restapi.amap.com/v3/staticmap?location=${locations}&zoom=${zoom}&size=750*500&markers=mid,,A:${locations}&key=${gaodeKey}`
-            node.log(image_map)
             axios({
                 method: 'get',
                 url: `http://restapi.amap.com/v3/assistant/coordinate/convert?key=${gaodeKey}&locations=${locations}&coordsys=gps`
@@ -32,6 +30,7 @@ module.exports = function (RED) {
             }).then(function (response) {
                 var data = response.data
                 var status = data['status']
+                payload.image = `https://restapi.amap.com/v3/staticmap?location=${data.locations}&zoom=${zoom}&size=750*500&markers=mid,,A:${data.locations}&key=${gaodeKey}`
                 if (status != 1) {
                     throw new Error(JSON.stringify(data))
                 }
@@ -49,7 +48,6 @@ module.exports = function (RED) {
 
                 payload.status = 1
                 payload.location = data['regeocode']['formatted_address']
-                payload.image = image_map
                 msg.payload = payload
                 msg['data'] = data
                 node.send(msg)
