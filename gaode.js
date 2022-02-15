@@ -32,6 +32,8 @@ module.exports = function (RED) {
             }).then(function (response) {
                 var data = response.data
                 var status = data['status']
+                image_map = `https://restapi.amap.com/v3/staticmap?location=${data.locations}&zoom=${zoom}&size=750*500&markers=mid,,A:${data.locations}&key=${gaodeKey}`
+                node.log(image_map)
                 if (status != 1) {
                     throw new Error(JSON.stringify(data))
                 }
