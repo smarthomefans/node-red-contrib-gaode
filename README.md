@@ -1,10 +1,9 @@
 # node-red-contrib-gaode
 
-> Node-Red 高德插件,方便时刻关注指定手机的位置,防隔壁老王
+> Node-Red 高德插件,根据根据经纬度查看对应用户信息
 
 ## 安装
 
-**需要版本 v6.0 or 以上**
 
 ```
 $ npm i node-red-contrib-gaode
@@ -13,16 +12,23 @@ $ npm i node-red-contrib-gaode
 ## 如何使用
 
 找到*gaode*类别,提供了两个节点,
-* 根据ha指定经纬度,获取位置信息(防隔壁老王)
-* 根据指定经纬度获取行程距离和时间(拉响警报))
+* 根据指定经纬度,获取位置信息加位置缩略图
+* 根据指定经纬度获取行程距离和时间包括驾驶、公交、骑行、步行等方式
+* 地理坐标系转换， 支持gps、百度、高德等坐标互相转换
 
 ## Maintainers
 
 [@yaming116](https://github.com/yaming116)
 
-## QQ群 776817275 欢迎大家加入
 
-![](https://i.loli.net/2018/12/28/5c25b8bf1e78d.jpg)
+### 公众号
+
+可以关注我的公众号，一起交流 HomeAssistant 和Node Red 相关技术。
+
+![](./images/IMG_8406.JPG)
+
+
+
 
 ## License
 
