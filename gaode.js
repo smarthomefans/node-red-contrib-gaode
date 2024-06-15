@@ -32,6 +32,8 @@ module.exports = function (RED) {
             }).then(function (response) {
                 var data = response.data
                 var status = data['status']
+                image_map = `https://restapi.amap.com/v3/staticmap?location=${data.locations}&zoom=${zoom}&size=750*500&markers=mid,,A:${data.locations}&key=${gaodeKey}`
+                node.log(image_map)
                 if (status != 1) {
                     throw new Error(JSON.stringify(data))
                 }
@@ -115,9 +117,16 @@ module.exports = function (RED) {
                 })
             }).then(function (response) {
                 var data = response.data
-                var status = data['status']
-                if (status != 1) {
-                    throw new Error(JSON.stringify(data))
+                if(config.s3){
+                    var errcode = data['errcode']
+                    if(errcode != 0){
+                        throw new Error(JSON.stringify(data))                      
+                    }
+                }else{
+                    var status = data['status']
+                    if (status != 1) {
+                        throw new Error(JSON.stringify(data))
+                    }
                 }
 
                 var paths = null
@@ -161,7 +170,7 @@ module.exports = function (RED) {
         }
 
         if (config.s3) {
-            return `https://restapi.amap.com/v3/direction/bicycling?origin=${locaions[0]}&destination=${locaions[1]}&key=${gaodeKey}`
+            return `https://restapi.amap.com/v4/direction/bicycling?origin=${locaions[0]}&destination=${locaions[1]}&key=${gaodeKey}`
         }
 
         if (config.s4) {
